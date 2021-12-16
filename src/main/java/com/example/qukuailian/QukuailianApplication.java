@@ -11,4 +11,5 @@ public class QukuailianApplication {
         SpringApplication.run(QukuailianApplication.class, args);
     }
 
+
 }

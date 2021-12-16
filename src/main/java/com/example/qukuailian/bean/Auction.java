@@ -1,58 +1,14 @@
 package com.example.qukuailian.bean;
 
+import lombok.Data;
+
+@Data
 public class Auction {
     private String auctionId;
-    private String userId;
-    private String encryptAlg;
-    private String orderEncryptAlg;
-    private String encryptAlgParam;
-    private String orderEncryptAlgParam;
 
-    public String getAuctionId() {
-        return auctionId;
-    }
+    private String pk;
 
-    public void setAuctionId(String auctionId) {
-        this.auctionId = auctionId;
-    }
+    private String sk;
 
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getEncryptAlg() {
-        return encryptAlg;
-    }
-
-    public void setEncryptAlg(String encryptAlg) {
-        this.encryptAlg = encryptAlg;
-    }
-
-    public String getOrderEncryptAlg() {
-        return orderEncryptAlg;
-    }
-
-    public void setOrderEncryptAlg(String orderEncryptAlg) {
-        this.orderEncryptAlg = orderEncryptAlg;
-    }
-
-    public String getEncryptAlgParam() {
-        return encryptAlgParam;
-    }
-
-    public void setEncryptAlgParam(String encryptAlgParam) {
-        this.encryptAlgParam = encryptAlgParam;
-    }
-
-    public String getOrderEncryptAlgParam() {
-        return orderEncryptAlgParam;
-    }
-
-    public void setOrderEncryptAlgParam(String orderEncryptAlgParam) {
-        this.orderEncryptAlgParam = orderEncryptAlgParam;
-    }
+    private String ok;
 }

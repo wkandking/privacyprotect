@@ -15,7 +15,7 @@ public class OPE {
 
 	public OPE() {
 
-		this.key = "key";
+		this.key = "privacyprotect";
 
 		this.inRange = new ValueRange(new BigInteger("2").pow(32).negate(),
 				new BigInteger("2").pow(32));
@@ -186,24 +186,6 @@ public class OPE {
 		return OPEFactory.instance;
 	}
 	public static void main(String[] args) throws Exception {
-		String privateKey = "MIGTAgEAMBMGByqGSM49AgEGCCqBHM9VAYItBHkwdwIBAQQgaLfKcKm1VDkS+LELCuBXvkqxxpPhT97c1RDO/qxaBhSgCgYIKoEcz1UBgi2hRANCAATp5szn1N/TeRfCe8VeczoKFqMCdiGlPzBuOXUyWxsYurbirJb4T+ypZNRvbVv3Pa+aZNK2CQUY9VcJbiBdWUeN";
-		String publicKey = "MFkwEwYHKoZIzj0CAQYIKoEcz1UBgi0DQgAE6ebM59Tf03kXwnvFXnM6ChajAnYhpT8wbjl1MlsbGLq24qyW+E/sqWTUb21b9z2vmmTStgkFGPVXCW4gXVlHjQ==";
-
-		String text = "123456";
-
-		String jiamiText = SM2.encrypt(text,publicKey);
-		System.out.println(jiamiText);
-
-		System.out.println(privateKey);
-		System.out.println(publicKey);
-		String jiemiText = SM2.decrypt(jiamiText,privateKey);
-		System.out.println(jiemiText);
-
-		String signature = SM2.sign(text,privateKey);
-		boolean result = SM2.verify(text,signature,publicKey);
-		System.out.println(result);
-
-
 
 	}
 }

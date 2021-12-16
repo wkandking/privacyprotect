@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.qukuailian.dao.AuctionMapper">
+  <resultMap id="BaseResultMap" type="com.example.qukuailian.bean.Auction">
+    <id column="auction_id" jdbcType="VARCHAR" property="auctionId" />
+    <result column="pk" jdbcType="VARCHAR" property="pk" />
+    <result column="sk" jdbcType="VARCHAR" property="sk" />
+    <result column="ok" jdbcType="VARCHAR" property="ok" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    auction_id, pk, sk, ok
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from auction
+    where auction_id = #{auctionId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from auction
+    where auction_id = #{auctionId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.example.qukuailian.bean.Auction">
+    insert into auction (auction_id, pk, sk, 
+      ok)
+    values (#{auctionId,jdbcType=VARCHAR}, #{pk,jdbcType=VARCHAR}, #{sk,jdbcType=VARCHAR}, 
+      #{ok,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.qukuailian.bean.Auction">
+    insert into auction
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="auctionId != null">
+        auction_id,
+      </if>
+      <if test="pk != null">
+        pk,
+      </if>
+      <if test="sk != null">
+        sk,
+      </if>
+      <if test="ok != null">
+        ok,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="auctionId != null">
+        #{auctionId,jdbcType=VARCHAR},
+      </if>
+      <if test="pk != null">
+        #{pk,jdbcType=VARCHAR},
+      </if>
+      <if test="sk != null">
+        #{sk,jdbcType=VARCHAR},
+      </if>
+      <if test="ok != null">
+        #{ok,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.qukuailian.bean.Auction">
+    update auction
+    <set>
+      <if test="pk != null">
+        pk = #{pk,jdbcType=VARCHAR},
+      </if>
+      <if test="sk != null">
+        sk = #{sk,jdbcType=VARCHAR},
+      </if>
+      <if test="ok != null">
+        ok = #{ok,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where auction_id = #{auctionId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.qukuailian.bean.Auction">
+    update auction
+    set pk = #{pk,jdbcType=VARCHAR},
+      sk = #{sk,jdbcType=VARCHAR},
+      ok = #{ok,jdbcType=VARCHAR}
+    where auction_id = #{auctionId,jdbcType=VARCHAR}
+  </update>
+</mapper>
