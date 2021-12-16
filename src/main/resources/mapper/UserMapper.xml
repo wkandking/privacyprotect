@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.qukuailian.dao.UserMapper">
+    <resultMap id="User" type="com.example.qukuailian.bean.User">
+        <result property="userid" column="userid"/>
+        <result property="org" column="org"/>
+        <result property="pk" column="pk"/>
+        <result property="sk" column="sk"/>
+    </resultMap>
+    <select id="checkUserIsEmpty" resultType="int">
+        select count(*)
+        from user
+        where userid = #{userid}
+    </select>
+
+    <select id="getUserByUserId" resultMap="User">
+        select userid, org,pk, sk
+        from user
+        where userid = #{userid}
+    </select>
+
+    <insert id="insert" parameterType="User">
+        insert into user(userid, org, pk, sk)
+        values (#{userid},#{org},#{pk},#{sk})
+    </insert>
+</mapper>
