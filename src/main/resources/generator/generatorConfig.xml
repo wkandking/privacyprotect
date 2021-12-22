@@ -34,7 +34,7 @@
         </javaClientGenerator>
 
         <!-- 相关表的配置 -->
-        <table tableName="auction" domainObjectName="Auction" enableCountByExample="false"  enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+        <table tableName="allUser" domainObjectName="User" enableCountByExample="false"  enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
         <!--
         <table tableName="department" domainObjectName="Department" enableCountByExample="false"  enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
         -->

@@ -5,14 +5,11 @@ import lombok.Data;
 @Data
 public class PaperInformation {
     private String paperNumber;
-    private String issUser;
-    private String pubKey;
-    private String priKey;
-
-    private String issUserOrg;
     private String price;
-    private String oldOwer;
-    private String oldOwnerOrg;
-    private String redeemingOwner;
-    private String redeemingOwnerOrg;
+    private String issuer;
+    private String issuerOrg;
+    private String newOwner;
+    private String newOwnerOrg;
+    private String pk;
+    private String sk;
 }

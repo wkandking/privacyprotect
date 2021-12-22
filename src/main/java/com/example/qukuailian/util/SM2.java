@@ -14,6 +14,7 @@ import org.bouncycastle.jcajce.provider.asymmetric.util.ECUtil;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.springframework.util.Base64Utils;
 
+import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.security.spec.*;
@@ -189,22 +190,7 @@ public class SM2 {
     }
 
     public static void main(String[] args) throws Exception {
-        String privateKey = "MIGTAgEAMBMGByqGSM49AgEGCCqBHM9VAYItBHkwdwIBAQQgaLfKcKm1VDkS+LELCuBXvkqxxpPhT97c1RDO/qxaBhSgCgYIKoEcz1UBgi2hRANCAATp5szn1N/TeRfCe8VeczoKFqMCdiGlPzBuOXUyWxsYurbirJb4T+ypZNRvbVv3Pa+aZNK2CQUY9VcJbiBdWUeN";
-        String publicKey = "MFkwEwYHKoZIzj0CAQYIKoEcz1UBgi0DQgAE6ebM59Tf03kXwnvFXnM6ChajAnYhpT8wbjl1MlsbGLq24qyW+E/sqWTUb21b9z2vmmTStgkFGPVXCW4gXVlHjQ==";
-
-        String text = "123456";
-
-        String jiamiText = encrypt(text,publicKey);
-        System.out.println(jiamiText);
-
-        System.out.println(privateKey);
-        System.out.println(publicKey);
-        String jiemiText = decrypt(jiamiText,privateKey);
-        System.out.println(jiemiText);
-
-        String signature = sign(text,privateKey);
-        boolean result = verify(text,signature,publicKey);
-        System.out.println(result);
-
+        OPE ope = new OPE();
+        System.out.println(ope.encrypt(new BigInteger("1234567")).toString());
     }
 }

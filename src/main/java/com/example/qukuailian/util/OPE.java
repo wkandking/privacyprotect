@@ -17,10 +17,10 @@ public class OPE {
 
 		this.key = "privacyprotect";
 
-		this.inRange = new ValueRange(new BigInteger("2").pow(32).negate(),
+		this.inRange = new ValueRange(new BigInteger("2").pow(0).negate(),
+				new BigInteger("2").pow(24));
+		this.outRange = new ValueRange(new BigInteger("2").pow(0).negate(),
 				new BigInteger("2").pow(32));
-		this.outRange = new ValueRange(new BigInteger("2").pow(48).negate(),
-				new BigInteger("2").pow(48));
 
 		// this.inRange = new ValueRange(BigInteger.ZERO, new BigInteger("100"));
 		// this.outRange = new ValueRange(BigInteger.ZERO, new BigInteger("200"));

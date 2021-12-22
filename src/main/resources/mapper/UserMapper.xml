@@ -1,27 +1,102 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.qukuailian.dao.UserMapper">
-    <resultMap id="User" type="com.example.qukuailian.bean.User">
-        <result property="userid" column="userid"/>
-        <result property="org" column="org"/>
-        <result property="pk" column="pk"/>
-        <result property="sk" column="sk"/>
-    </resultMap>
-    <select id="checkUserIsEmpty" resultType="int">
-        select count(*)
-        from user
-        where userid = #{userid}
-    </select>
+  <resultMap id="BaseResultMap" type="com.example.qukuailian.bean.User">
+    <id column="userid" jdbcType="VARCHAR" property="userid" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="org" jdbcType="VARCHAR" property="org" />
+    <result column="pk" jdbcType="VARCHAR" property="pk" />
+    <result column="sk" jdbcType="VARCHAR" property="sk" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    userid, username, org, pk, sk
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from alluser
+    where userid = #{userid,jdbcType=VARCHAR}
+  </select>
 
-    <select id="getUserByUserId" resultMap="User">
-        select userid, org,pk, sk
-        from user
-        where userid = #{userid}
-    </select>
+  <select id="selectByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from alluser
+    where username = #{name,jdbcType=VARCHAR}
+  </select>
 
-    <insert id="insert" parameterType="User">
-        insert into user(userid, org, pk, sk)
-        values (#{userid},#{org},#{pk},#{sk})
-    </insert>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from alluser
+    where userid = #{userid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.example.qukuailian.bean.User">
+    insert into alluser (userid, username, org, 
+      pk, sk)
+    values (#{userid,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{org,jdbcType=VARCHAR}, 
+      #{pk,jdbcType=VARCHAR}, #{sk,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.qukuailian.bean.User">
+    insert into alluser
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="org != null">
+        org,
+      </if>
+      <if test="pk != null">
+        pk,
+      </if>
+      <if test="sk != null">
+        sk,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="org != null">
+        #{org,jdbcType=VARCHAR},
+      </if>
+      <if test="pk != null">
+        #{pk,jdbcType=VARCHAR},
+      </if>
+      <if test="sk != null">
+        #{sk,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.qukuailian.bean.User">
+    update alluser
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="org != null">
+        org = #{org,jdbcType=VARCHAR},
+      </if>
+      <if test="pk != null">
+        pk = #{pk,jdbcType=VARCHAR},
+      </if>
+      <if test="sk != null">
+        sk = #{sk,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where userid = #{userid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.qukuailian.bean.User">
+    update alluser
+    set username = #{username,jdbcType=VARCHAR},
+      org = #{org,jdbcType=VARCHAR},
+      pk = #{pk,jdbcType=VARCHAR},
+      sk = #{sk,jdbcType=VARCHAR}
+    where userid = #{userid,jdbcType=VARCHAR}
+  </update>
 </mapper>

@@ -1,10 +1,13 @@
 package com.example.qukuailian.service;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.example.qukuailian.bean.Paper;
 import com.example.qukuailian.bean.PaperInformation;
 import com.example.qukuailian.bean.User;
 import com.example.qukuailian.dao.PaperMapper;
 import com.example.qukuailian.dao.UserMapper;
+import com.example.qukuailian.util.CustomException;
 import com.example.qukuailian.util.SM2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,23 +21,27 @@ public class PaperService {
     @Autowired
     UserMapper userMapper;
 
-    public int insert(String paperNumber, String issUser){
+    public Paper insert(String json){
+        JSONObject o = (JSONObject) JSON.parse(json);
+        String paperNumber = o.getString("paperNumber");
+        String name = o.getString("issuer");
+        User user = userMapper.selectByUserName(name);
         Paper paper = new Paper();
         paper.setPaperId(paperNumber);
-        paper.setUserId(issUser);
+        paper.setUserId(user.getUserid());
         int result = paperMapper.insert(paper);
-        return result;
+        if(result == 0) throw new CustomException(120,"insert paper failed");
+        return paper;
     }
 
-    public PaperInformation getUserInformation(String paperNumber){
-        String userId = paperMapper.selectByPrimaryKey(paperNumber).getUserId();
-        User user =  userMapper.getUserByUserId(userId);
+    public PaperInformation getPaperInformation(Paper paper){
+        User user =  userMapper.selectByPrimaryKey(paper.getUserId());
         PaperInformation paperInformation = new PaperInformation();
-        paperInformation.setIssUser(user.getUserid());
-        paperInformation.setPaperNumber(paperNumber);
-        paperInformation.setPubKey(user.getPk());
-        paperInformation.setPriKey(user.getSk());
-        paperInformation.setIssUserOrg(user.getOrg());
+        paperInformation.setIssuer(user.getUsername());
+        paperInformation.setPaperNumber(paper.getPaperId());
+        paperInformation.setPk(user.getPk());
+        paperInformation.setSk(user.getSk());
+        paperInformation.setIssuerOrg(user.getOrg());
 
         return paperInformation;
     }
@@ -43,42 +50,77 @@ public class PaperService {
         PaperInformation result = new PaperInformation();
 
         result.setPaperNumber(paperInformation.getPaperNumber());
-        result.setIssUser(SM2.encrypt(paperInformation.getIssUser(),paperInformation.getPubKey()));
-        result.setIssUserOrg(SM2.encrypt(paperInformation.getIssUserOrg(),paperInformation.getPubKey()));
-        result.setPrice(SM2.encrypt(paperInformation.getPrice(),paperInformation.getPubKey()));
-        result.setOldOwer(SM2.encrypt(paperInformation.getOldOwer(), paperInformation.getPubKey()));
-        result.setOldOwnerOrg(SM2.encrypt(paperInformation.getOldOwnerOrg(), paperInformation.getPubKey()));
-        result.setRedeemingOwner(SM2.encrypt(paperInformation.getRedeemingOwner(), paperInformation.getPubKey()));
-        result.setRedeemingOwnerOrg(SM2.encrypt(paperInformation.getRedeemingOwnerOrg(), paperInformation.getPubKey()));
-        result.setPubKey(paperInformation.getPubKey());
-        result.setPriKey(paperInformation.getPriKey());
+        result.setIssuer(SM2.encrypt(paperInformation.getIssuer(),paperInformation.getPk()));
+        result.setIssuerOrg(SM2.encrypt(paperInformation.getIssuerOrg(),paperInformation.getPk()));
+        result.setPrice(SM2.encrypt(paperInformation.getPrice(),paperInformation.getPk()));
+        result.setNewOwner(SM2.encrypt(paperInformation.getNewOwner(), paperInformation.getPk()));
+        result.setNewOwnerOrg(SM2.encrypt(paperInformation.getNewOwnerOrg(), paperInformation.getPk()));
+        result.setPk(paperInformation.getPk());
+        result.setSk(paperInformation.getSk());
         return result;
     }
 
     public PaperInformation decrypt(PaperInformation paperInformation) throws Exception {
         PaperInformation result = new PaperInformation();
         result.setPaperNumber(paperInformation.getPaperNumber());
-        result.setPrice(SM2.decrypt(paperInformation.getPrice(),paperInformation.getPriKey()));
-        result.setIssUser(SM2.decrypt(paperInformation.getIssUser(),paperInformation.getPriKey()));
-        result.setIssUserOrg(SM2.decrypt(paperInformation.getIssUserOrg(), paperInformation.getPriKey()));
-        result.setOldOwer(SM2.decrypt(paperInformation.getOldOwer(), paperInformation.getPriKey()));
-        result.setOldOwnerOrg(SM2.decrypt(paperInformation.getOldOwnerOrg(), paperInformation.getPriKey()));
+        result.setPrice(SM2.decrypt(paperInformation.getPrice(),paperInformation.getSk()));
+        result.setIssuer(SM2.decrypt(paperInformation.getIssuer(),paperInformation.getSk()));
+        result.setIssuerOrg(SM2.decrypt(paperInformation.getIssuerOrg(), paperInformation.getSk()));
+        result.setNewOwner(SM2.decrypt(paperInformation.getNewOwner(), paperInformation.getSk()));
+        result.setNewOwnerOrg(SM2.decrypt(paperInformation.getNewOwnerOrg(), paperInformation.getSk()));
 
-        result.setRedeemingOwner(SM2.decrypt(paperInformation.getRedeemingOwner(), paperInformation.getPriKey()));
-        result.setRedeemingOwnerOrg(SM2.decrypt(paperInformation.getRedeemingOwnerOrg(), paperInformation.getPriKey()));
 
-        result.setPubKey(paperInformation.getPubKey());
-        result.setPriKey(paperInformation.getPriKey());
+        result.setPk(paperInformation.getPk());
+        result.setSk(paperInformation.getSk());
         return result;
     }
 
-    public int updateOwner(String paperNumber, String newOwner){
+    public PaperInformation updateOwner(String json){
+        JSONObject o = (JSONObject) JSON.parse(json);
+        String paperNumber = o.getString("paperNumber");
+        String issuer = o.getString("issuer");
+        String issuerOrg = o.getString("issuerOrg");
+        String newOwner = o.getString("newOwner");
+        String newOwnerOrg = o.getString("newOwnerOrg");
+
+        User newUser = userMapper.selectByUserName(newOwner);
         Paper paper = new Paper();
         paper.setPaperId(paperNumber);
-        paper.setUserId(newOwner);
-        return paperMapper.updateByPrimaryKeySelective(paper);
+        paper.setUserId(newUser.getUserid());
+        paperMapper.updateByPrimaryKey(paper);
+
+        PaperInformation p = new PaperInformation();
+        p.setPaperNumber(paperNumber);
+        p.setIssuer(issuer);
+        p.setIssuerOrg(issuerOrg);
+        p.setNewOwner(newOwner);
+        p.setNewOwnerOrg(newOwnerOrg);
+        p.setPk(newUser.getPk());
+        p.setSk(newUser.getSk());
+
+        return p;
 
     }
 
 
+    public PaperInformation convertPaperInforMation(String json) {
+        JSONObject o = (JSONObject) JSON.parse(json);
+        String paperNumber = o.getString("paperNumber");
+        String price = o.getString("price");
+        String newOwner = o.getString("newOwner");
+        String newOwnerOrg = o.getString("newOwnerOrg");
+
+        String userid = paperMapper.selectByPrimaryKey(paperNumber).getUserId();
+        User user = userMapper.selectByPrimaryKey(userid);
+
+        PaperInformation p = new PaperInformation();
+        p.setPaperNumber(paperNumber);
+        p.setNewOwner(newOwner);
+        p.setPrice(price);
+        p.setNewOwnerOrg(newOwnerOrg);
+        p.setPk(user.getPk());
+        p.setSk(user.getSk());
+
+        return p;
+    }
 }

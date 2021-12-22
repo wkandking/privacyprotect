@@ -5,7 +5,18 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface UserMapper {
-    int checkUserIsEmpty(String userid);
-    User getUserByUserId(String userid);
-    int insert(User user);
+    int deleteByPrimaryKey(String userid);
+
+    int insert(User record);
+
+    int insertSelective(User record);
+
+    User selectByPrimaryKey(String userid);
+
+    User selectByUserName(String name);
+
+    int updateByPrimaryKeySelective(User record);
+
+    int updateByPrimaryKey(User record);
+
 }

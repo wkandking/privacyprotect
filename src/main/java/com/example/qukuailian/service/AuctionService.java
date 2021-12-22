@@ -2,15 +2,11 @@ package com.example.qukuailian.service;
 
 import com.example.qukuailian.bean.Auction;
 import com.example.qukuailian.bean.AuctionInformation;
-import com.example.qukuailian.bean.Message;
-import com.example.qukuailian.bean.User;
 import com.example.qukuailian.dao.AuctionMapper;
 import com.example.qukuailian.util.OPE;
 import com.example.qukuailian.util.SM2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigInteger;
 import java.security.KeyPair;
