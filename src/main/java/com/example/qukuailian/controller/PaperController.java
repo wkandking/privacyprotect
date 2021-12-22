@@ -3,7 +3,6 @@ package com.example.qukuailian.controller;
 import com.example.qukuailian.bean.Message;
 import com.example.qukuailian.bean.Paper;
 import com.example.qukuailian.bean.PaperInformation;
-import com.example.qukuailian.bean.User;
 import com.example.qukuailian.service.PaperService;
 import com.example.qukuailian.service.UserService;
 import com.example.qukuailian.util.CustomException;

@@ -17,24 +17,25 @@ public class AuctionService {
     @Autowired
     AuctionMapper auctionMapper;
 
-    public boolean checkAuctionIsEmpty(String auctionId){
-        return auctionMapper.selectByPrimaryKey(auctionId) == null;
-    }
-    public int insetAuction(String auctionId){
-        KeyPair keyPair = SM2.generateSm2KeyPair(auctionId);
-        String pk = Base64.getEncoder().encodeToString(keyPair.getPublic().getEncoded());
-        String sk = Base64.getEncoder().encodeToString(keyPair.getPrivate().getEncoded());
+    public int insertAuction(String auctionId){
         Auction auction = new Auction();
         auction.setAuctionId(auctionId);
+        auctionMapper.insert(auction);
+        Integer flag = auctionMapper.selectByAuctionId(auctionId).getFlag();
+        System.out.println(flag);
+        KeyPair keyPair = SM2.generateSm2KeyPair(String.valueOf(flag));
+        String pk = Base64.getEncoder().encodeToString(keyPair.getPublic().getEncoded());
+        String sk = Base64.getEncoder().encodeToString(keyPair.getPrivate().getEncoded());
+        auction.setFlag(flag);
         auction.setPk(pk);
         auction.setSk(sk);
         auction.setOk(auctionId);
-        return auctionMapper.insertSelective(auction);
+        return auctionMapper.updateByPrimaryKey(auction);
     }
 
     public AuctionInformation encrypt(AuctionInformation auctionInformation) throws Exception {
         AuctionInformation result = new AuctionInformation();
-        Auction auction = auctionMapper.selectByPrimaryKey(auctionInformation.getAuctionId());
+        Auction auction = auctionMapper.selectByAuctionId(auctionInformation.getAuctionId());
         result.setAuctionId(auctionInformation.getAuctionId());
         result.setBidprice(OPE.getInstance().encrypt(new BigInteger(auctionInformation.getBidprice())).toString());
         result.setUsername(SM2.encrypt(auctionInformation.getUsername(),auction.getPk()));
@@ -43,7 +44,7 @@ public class AuctionService {
 
     public AuctionInformation decrypt(AuctionInformation auctionInformation) throws Exception {
         AuctionInformation result = new AuctionInformation();
-        Auction auction = auctionMapper.selectByPrimaryKey(auctionInformation.getAuctionId());
+        Auction auction = auctionMapper.selectByAuctionId(auctionInformation.getAuctionId());
         result.setAuctionId(auctionInformation.getAuctionId());
         result.setBidprice(OPE.getInstance().decrypt(new BigInteger(auctionInformation.getBidprice())).toString());
         result.setUsername(SM2.decrypt(auctionInformation.getUsername(),auction.getSk()));

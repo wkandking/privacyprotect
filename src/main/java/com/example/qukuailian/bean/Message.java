@@ -1,7 +1,10 @@
 package com.example.qukuailian.bean;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
+@Data
 public class Message<T> implements Serializable {
 
     /**
@@ -24,37 +27,6 @@ public class Message<T> implements Serializable {
      */
     private Long time;
 
-    public Integer getCode() {
-        return code;
-    }
-
-    public void setCode(Integer code) {
-        this.code = code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
-    }
-
-    public Long getTime() {
-        return time;
-    }
-
-    public void setTime(Long time) {
-        this.time = time;
-    }
 
     public Message(Integer code, String message, T data, Long time) {
         this.code = code;
@@ -62,8 +34,4 @@ public class Message<T> implements Serializable {
         this.data = data;
         this.time = time;
     }
-
-    public Message() {
-    }
-    // getter、setter 以及 构造方法略。。。
 }

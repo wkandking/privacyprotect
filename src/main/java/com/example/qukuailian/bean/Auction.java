@@ -4,6 +4,8 @@ import lombok.Data;
 
 @Data
 public class Auction {
+    private Integer flag;
+
     private String auctionId;
 
     private String pk;
@@ -11,4 +13,5 @@ public class Auction {
     private String sk;
 
     private String ok;
+
 }
