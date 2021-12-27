@@ -88,6 +88,16 @@ public class PaperController {
             throw new CustomException(120,"transfer encrypt failed!");
         }
     }
+
+    @PostMapping("/encrypt")
+    public Message<String> encrypt(@RequestBody String json) throws Exception {
+        return MessageUtil.ok(paperService.encrypt(json));
+    }
+
+    @PostMapping("/decrypt")
+    public Message<String> decrypt(@RequestBody String json) throws Exception {
+        return MessageUtil.ok(paperService.decrypt(json));
+    }
 //
 //    @RequestMapping("/reedem")
 //    public Message<PaperInformation> reedem(@RequestParam("paperNumber") String paperNumber,

@@ -123,4 +123,19 @@ public class PaperService {
 
         return p;
     }
+
+    public String encrypt(String json) throws Exception {
+        JSONObject o = (JSONObject) JSON.parse(json);
+        String username = o.getString("username");
+        String origintext = o.getString("origintext");
+        User user = userMapper.selectByUserName(username);
+        return SM2.encrypt(origintext, user.getPk());
+    }
+    public String decrypt(String json) throws Exception {
+        JSONObject o = (JSONObject) JSON.parse(json);
+        String username = o.getString("username");
+        String encrypttext = o.getString(("encrypttext"));
+        User user = userMapper.selectByUserName(username);
+        return SM2.decrypt(encrypttext, user.getSk());
+    }
 }
