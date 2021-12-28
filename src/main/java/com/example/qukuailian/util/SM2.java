@@ -133,7 +133,11 @@ public class SM2 {
         if(text == null) return null;
         byte[] publicKey = Base64Utils.decodeFromString(pub_key);
         byte[] data = text.getBytes(StandardCharsets.UTF_8);
-        CipherParameters pubKeyParameters = new ParametersWithRandom(publicKeyToParams("SM2", publicKey));
+        SecureRandom random = new SecureRandom();
+        //使用userid 作为随机数种子
+        byte[] values = new byte[]{1};
+        random.setSeed(values);
+        CipherParameters pubKeyParameters = new ParametersWithRandom(publicKeyToParams("SM2", publicKey),random);
         SM2Engine engine = new SM2Engine(DIGEST);
         engine.init(true, pubKeyParameters);
         return Base64.getEncoder().encodeToString(engine.processBlock(data, 0, data.length));

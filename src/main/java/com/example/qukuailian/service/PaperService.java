@@ -108,7 +108,6 @@ public class PaperService {
         String paperNumber = o.getString("paperNumber");
         String price = o.getString("price");
         String newOwner = o.getString("newOwner");
-        String newOwnerOrg = o.getString("newOwnerOrg");
 
         String userid = paperMapper.selectByPrimaryKey(paperNumber).getUserId();
         User user = userMapper.selectByPrimaryKey(userid);
@@ -117,7 +116,6 @@ public class PaperService {
         p.setPaperNumber(paperNumber);
         p.setNewOwner(newOwner);
         p.setPrice(price);
-        p.setNewOwnerOrg(newOwnerOrg);
         p.setPk(user.getPk());
         p.setSk(user.getSk());
 
@@ -137,5 +135,11 @@ public class PaperService {
         String encrypttext = o.getString(("encrypttext"));
         User user = userMapper.selectByUserName(username);
         return SM2.decrypt(encrypttext, user.getSk());
+    }
+
+    public String owner(String json){
+        JSONObject o = (JSONObject) JSON.parse(json);
+        String owner = o.getString("owner");
+        return userMapper.selectByUserName(owner).getNameencrypt();
     }
 }

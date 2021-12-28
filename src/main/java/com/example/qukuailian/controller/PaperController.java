@@ -98,24 +98,11 @@ public class PaperController {
     public Message<String> decrypt(@RequestBody String json) throws Exception {
         return MessageUtil.ok(paperService.decrypt(json));
     }
-//
-//    @RequestMapping("/reedem")
-//    public Message<PaperInformation> reedem(@RequestParam("paperNumber") String paperNumber,
-//                                            @RequestParam("redeemingOwner") String redeemingOwner,
-//                                            @RequestParam("issuingOwnerOrg") String issuingOwnerOrg){
-//        PaperInformation paperInformation = paperService.getUserInformation(paperNumber);
-//        paperInformation.setRedeemingOwner(redeemingOwner);
-//        paperInformation.setRedeemingOwnerOrg(issuingOwnerOrg);
-//        PaperInformation p;
-//        try{
-//            p = paperService.encrypt(paperInformation);
-//            p.setPriKey(null);
-//            return MessageUtil.ok(p);
-//        }catch (Exception e){
-//            throw new CustomException(120,"reedem encrypt failed!");
-//        }
-//
-//    }
+
+    @PostMapping("/owner")
+    public Message<String> owner(@RequestBody String json){
+        return MessageUtil.ok(paperService.owner(json));
+    }
 
 
 

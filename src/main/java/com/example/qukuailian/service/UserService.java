@@ -34,7 +34,7 @@ public class UserService {
         return userMapper.selectByUserName(username);
     }
 
-    public int insertUser(String json){
+    public int insertUser(String json) throws Exception {
         JSONObject o = (JSONObject) JSON.parse(json);
         String userid = o.getString("userid");
         String username = o.getString("name");
@@ -42,12 +42,14 @@ public class UserService {
         KeyPair keyPair = SM2.generateSm2KeyPair(userid);
         String pk = Base64.getEncoder().encodeToString(keyPair.getPublic().getEncoded());
         String sk = Base64.getEncoder().encodeToString(keyPair.getPrivate().getEncoded());
+        String nameEncrypt = SM2.encrypt(username, pk);
         User user = new User();
         user.setUserid(userid);
         user.setUsername(username);
         user.setOrg(org);
         user.setPk(pk);
         user.setSk(sk);
+        user.setNameencrypt(nameEncrypt);
         return userMapper.insert(user);
     }
 
