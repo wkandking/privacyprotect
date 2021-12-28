@@ -22,7 +22,7 @@ public class AuctionController {
     }
 
     @RequestMapping("/encBidInfo")
-    public Message<AuctionInformation> encBidInfo(@RequestParam("auctionId") String auctionId,
+    public Message<AuctionInformation> encBidInfo(@RequestParam("auctionid") String auctionId,
                                                   @RequestParam("bidprice") String bidprice,
                                                   @RequestParam("username") String username) throws Exception {
         AuctionInformation auctionInformation = new AuctionInformation();
@@ -33,7 +33,7 @@ public class AuctionController {
     }
 
     @RequestMapping("/queryInfo")
-    public Message<AuctionInformation> queryInfo(@RequestParam("auctionId") String auctionId,
+    public Message<AuctionInformation> queryInfo(@RequestParam("auctionid") String auctionId,
                                                  @RequestParam("highTestPrice") String highTestPrice,
                                                  @RequestParam("username") String username) throws Exception {
         AuctionInformation auctionInformation = new AuctionInformation();
