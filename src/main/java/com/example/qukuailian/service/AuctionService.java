@@ -3,8 +3,8 @@ package com.example.qukuailian.service;
 import com.example.qukuailian.bean.Auction;
 import com.example.qukuailian.bean.AuctionInformation;
 import com.example.qukuailian.dao.AuctionMapper;
-import com.example.qukuailian.util.OPE;
-import com.example.qukuailian.util.SM2;
+import com.example.qukuailian.util.OPE.OPE;
+import com.example.qukuailian.util.SM2.SM2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +45,7 @@ public class AuctionService {
     public AuctionInformation decrypt(AuctionInformation auctionInformation) throws Exception {
         AuctionInformation result = new AuctionInformation();
         Auction auction = auctionMapper.selectByAuctionId(auctionInformation.getAuctionId());
+
         result.setAuctionId(auctionInformation.getAuctionId());
         result.setBidprice(OPE.getInstance().decrypt(new BigInteger(auctionInformation.getBidprice())).toString());
         result.setUsername(SM2.decrypt(auctionInformation.getUsername(),auction.getSk()));

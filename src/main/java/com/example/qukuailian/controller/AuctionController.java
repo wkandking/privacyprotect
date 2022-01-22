@@ -3,7 +3,7 @@ package com.example.qukuailian.controller;
 import com.example.qukuailian.bean.AuctionInformation;
 import com.example.qukuailian.bean.Message;
 import com.example.qukuailian.service.AuctionService;
-import com.example.qukuailian.util.MessageUtil;
+import com.example.qukuailian.util.OPE.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

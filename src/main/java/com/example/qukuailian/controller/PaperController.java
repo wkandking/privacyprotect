@@ -5,8 +5,8 @@ import com.example.qukuailian.bean.Paper;
 import com.example.qukuailian.bean.PaperInformation;
 import com.example.qukuailian.service.PaperService;
 import com.example.qukuailian.service.UserService;
-import com.example.qukuailian.util.CustomException;
-import com.example.qukuailian.util.MessageUtil;
+import com.example.qukuailian.util.OPE.CustomException;
+import com.example.qukuailian.util.OPE.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

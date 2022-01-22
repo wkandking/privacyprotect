@@ -7,8 +7,8 @@ import com.example.qukuailian.bean.PaperInformation;
 import com.example.qukuailian.bean.User;
 import com.example.qukuailian.dao.PaperMapper;
 import com.example.qukuailian.dao.UserMapper;
-import com.example.qukuailian.util.CustomException;
-import com.example.qukuailian.util.SM2;
+import com.example.qukuailian.util.OPE.CustomException;
+import com.example.qukuailian.util.SM2.SM2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
