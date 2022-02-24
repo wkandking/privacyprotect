@@ -1,6 +1,8 @@
 package com.example.qukuailian.util.SM4;
 
-
+/**
+ * Created by $(USER) on $(DATE)
+ */
 public class SM4_Context {
     public int mode;
 
@@ -15,4 +17,3 @@ public class SM4_Context {
         this.sk = new long[32];
     }
 }
-

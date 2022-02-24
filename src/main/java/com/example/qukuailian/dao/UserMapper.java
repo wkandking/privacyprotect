@@ -12,10 +12,9 @@ public interface UserMapper {
     int insertSelective(User record);
 
     User selectByPrimaryKey(String userid);
+    User selectByUserName(String username);
 
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
-
-    User selectByUserName(String name);
 }

@@ -1,8 +1,12 @@
 package com.example.qukuailian.util.SM4;
 
+/**
+ * Created by $(USER) on $(DATE)
+ */
 
 
-import com.example.qukuailian.util.Util;
+
+import com.example.qukuailian.util.util.Util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -188,7 +192,7 @@ public class SM4 {
             /*int p = input[input.length - 1];
             ret = new byte[input.length - p];
             System.arraycopy(input, 0, ret, 0, input.length - p);*/
-            String inputHex = Util.byteToHex(input);
+            String inputHex =Util.byteToHex(input);
             int i = inputHex.lastIndexOf("80");
             String substring = inputHex.substring(0, i);
             ret= Util.hexToByte(substring);
@@ -313,4 +317,3 @@ public class SM4 {
         return output;
     }
 }
-

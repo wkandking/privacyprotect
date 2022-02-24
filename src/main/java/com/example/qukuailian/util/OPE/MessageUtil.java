@@ -33,4 +33,8 @@ public class MessageUtil {
     public static <E>Message<E> error(Integer code,String msg){
         return new Message<>(code, msg, null, new Date().getTime());
     }
+
+    public static <E>Message<E> error(E o){
+        return new Message<>(400, "false", o, new Date().getTime());
+    }
 }

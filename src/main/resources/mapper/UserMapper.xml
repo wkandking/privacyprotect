@@ -8,9 +8,10 @@
     <result column="pk" jdbcType="VARCHAR" property="pk" />
     <result column="sk" jdbcType="VARCHAR" property="sk" />
     <result column="nameencrypt" jdbcType="VARCHAR" property="nameencrypt" />
+    <result column="sm4key" jdbcType="VARCHAR" property="sm4key" />
   </resultMap>
   <sql id="Base_Column_List">
-    userid, username, org, pk, sk, nameencrypt
+    userid, username, org, pk, sk, nameencrypt, sm4key
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -31,11 +32,11 @@
   </delete>
   <insert id="insert" parameterType="com.example.qukuailian.bean.User">
     insert into alluser (userid, username, org, 
-      pk, sk, nameencrypt
-      )
+      pk, sk, nameencrypt, 
+      sm4key)
     values (#{userid,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{org,jdbcType=VARCHAR}, 
-      #{pk,jdbcType=VARCHAR}, #{sk,jdbcType=VARCHAR}, #{nameencrypt,jdbcType=VARCHAR}
-      )
+      #{pk,jdbcType=VARCHAR}, #{sk,jdbcType=VARCHAR}, #{nameencrypt,jdbcType=VARCHAR}, 
+      #{sm4key,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.example.qukuailian.bean.User">
     insert into alluser
@@ -58,6 +59,9 @@
       <if test="nameencrypt != null">
         nameencrypt,
       </if>
+      <if test="sm4key != null">
+        sm4key,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userid != null">
@@ -77,6 +81,9 @@
       </if>
       <if test="nameencrypt != null">
         #{nameencrypt,jdbcType=VARCHAR},
+      </if>
+      <if test="sm4key != null">
+        #{sm4key,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -98,6 +105,9 @@
       <if test="nameencrypt != null">
         nameencrypt = #{nameencrypt,jdbcType=VARCHAR},
       </if>
+      <if test="sm4key != null">
+        sm4key = #{sm4key,jdbcType=VARCHAR},
+      </if>
     </set>
     where userid = #{userid,jdbcType=VARCHAR}
   </update>
@@ -107,7 +117,8 @@
       org = #{org,jdbcType=VARCHAR},
       pk = #{pk,jdbcType=VARCHAR},
       sk = #{sk,jdbcType=VARCHAR},
-      nameencrypt = #{nameencrypt,jdbcType=VARCHAR}
+      nameencrypt = #{nameencrypt,jdbcType=VARCHAR},
+      sm4key = #{sm4key,jdbcType=VARCHAR}
     where userid = #{userid,jdbcType=VARCHAR}
   </update>
 </mapper>

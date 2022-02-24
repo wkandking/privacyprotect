@@ -1,15 +1,24 @@
-package com.example.qukuailian.util;
+package com.example.qukuailian.util.util;
 
 import java.math.BigInteger;
 
+/**
+ * @author cqp
+ * @version 1.0.0
+ * @ClassName Util.java
+ * @Description TODO
+ * @createTime 2021年03月29日 10:17:00
+ */
 public class Util {
+
     /**
      * 整形转换成网络传输的字节流（字节数组）型数据
      *
      * @param num 一个整型数据
-     * @return 4个字节的自己数组
+     * @return 4个字节的数组
      */
-    public static byte[] intToBytes(int num) {
+    public static byte[] intToBytes(int num)
+    {
         byte[] bytes = new byte[4];
         bytes[0] = (byte) (0xff & (num >> 0));
         bytes[1] = (byte) (0xff & (num >> 8));
@@ -24,7 +33,8 @@ public class Util {
      * @param bytes 4个字节的字节数组
      * @return 一个整型数据
      */
-    public static int byteToInt(byte[] bytes) {
+    public static int byteToInt(byte[] bytes)
+    {
         int num = 0;
         int temp;
         temp = (0x000000ff & (bytes[0])) << 0;
@@ -44,14 +54,22 @@ public class Util {
      * @param num 一个长整型数据
      * @return 4个字节的自己数组
      */
-    public static byte[] longToBytes(long num) {
+    public static byte[] longToBytes(long num)
+    {
         byte[] bytes = new byte[8];
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 8; i++)
+        {
             bytes[i] = (byte) (0xff & (num >> (i * 8)));
         }
-
         return bytes;
     }
+
+
+
+
+
+
+
 
     /**
      * 大数字转换字节流（字节数组）型数据
@@ -297,12 +315,7 @@ public class Util {
         return digit;
     }
 
-    /**
-     * 数字字符串转ASCII码字符串
-     *
-     * @param String 字符串
-     * @return ASCII字符串
-     */
+
     public static String StringToAsciiString(String content) {
         String result = "";
         int max = content.length();
@@ -421,12 +434,7 @@ public class Util {
         return result;
     }
 
-    /**
-     * ASCII码字符串转数字字符串
-     *
-     * @param String ASCII字符串
-     * @return 字符串
-     */
+
     public static String AsciiStringToString(String content) {
         String result = "";
         int length = content.length() / 2;

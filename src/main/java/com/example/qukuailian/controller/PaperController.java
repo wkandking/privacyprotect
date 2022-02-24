@@ -1,5 +1,7 @@
 package com.example.qukuailian.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.example.qukuailian.bean.Message;
 import com.example.qukuailian.bean.Paper;
 import com.example.qukuailian.bean.PaperInformation;
@@ -40,12 +42,15 @@ public class PaperController {
     @PostMapping("/issue")
     public Message<PaperInformation> issue(@RequestBody String json){
         Paper paper = paperService.insert(json);
+        JSONObject o = (JSONObject) JSON.parse(json);
+        String algType = o.getString("algType");
         PaperInformation paperInformation = paperService.getPaperInformation(paper);
         try{
-            PaperInformation p = paperService.encrypt(paperInformation);
+            PaperInformation p = paperService.encrypt(paperInformation, algType);
             p.setSk(null);
             return MessageUtil.ok(p);
         }catch (Exception e){
+            e.printStackTrace();
             throw new CustomException(120,e.getMessage());
         }
     }
@@ -54,8 +59,10 @@ public class PaperController {
     public Message<PaperInformation> buy(@RequestBody String json){
 
         PaperInformation p = paperService.convertPaperInforMation(json);
+        JSONObject o = (JSONObject) JSON.parse(json);
+        String algType = o.getString("algType");
         try{
-            p = paperService.encrypt(p);
+            p = paperService.encrypt(p, algType);
             p.setPk(null);
             p.setSk(null);
             return MessageUtil.ok(p);
@@ -67,8 +74,10 @@ public class PaperController {
     @PostMapping("check")
     public Message<PaperInformation> check(@RequestBody String json){
         PaperInformation p = paperService.convertPaperInforMation(json);
+        JSONObject o = (JSONObject) JSON.parse(json);
+        String algType = o.getString("algType");
         try{
-            p = paperService.decrypt(p);
+            p = paperService.decrypt(p, algType);
             p.setPk(null);
             p.setSk(null);
             return MessageUtil.ok(p);
@@ -80,8 +89,10 @@ public class PaperController {
     @PostMapping("/transfer")
     public Message<PaperInformation> transfer(@RequestBody String json){
         PaperInformation p = paperService.updateOwner(json);
+        JSONObject o = (JSONObject) JSON.parse(json);
+        String algType = o.getString("algType");
         try{
-            p = paperService.encrypt(p);
+            p = paperService.encrypt(p, algType);
             p.setSk(null);
             return MessageUtil.ok(p);
         }catch (Exception e){

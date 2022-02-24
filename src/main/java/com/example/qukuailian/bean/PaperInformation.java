@@ -12,4 +12,5 @@ public class PaperInformation {
     private String newOwnerOrg;
     private String pk;
     private String sk;
+    private String sm4Key;
 }
