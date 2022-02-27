@@ -10,9 +10,9 @@ import org.bouncycastle.util.encoders.Hex;
  * @Description TODO
  * @createTime 2021年04月22日 13:42:00
  */
-public class SM3ServiceImpl implements SM3Service{
-    @Override
-    public String getHash(String message) {
+public class SM3ServiceImpl{
+
+    public static String getHash(String message) {
 
         byte[] md = new byte[32];
         byte[] msg = message.getBytes();

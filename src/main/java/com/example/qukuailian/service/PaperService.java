@@ -85,6 +85,7 @@ public class PaperService {
             key = paperInformation.getSm4Key();
         }
         PaperInformation result = new PaperInformation();
+        System.out.println(paperInformation.getNewOwner());
         result.setPaperNumber(paperInformation.getPaperNumber());
         result.setPrice((String) method.invoke(null, new Object[]{paperInformation.getPrice(),key}));
         result.setIssuer((String) method.invoke(null, new Object[]{paperInformation.getIssuer(),key}));

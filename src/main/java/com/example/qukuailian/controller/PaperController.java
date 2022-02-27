@@ -82,6 +82,7 @@ public class PaperController {
             p.setSk(null);
             return MessageUtil.ok(p);
         }catch (Exception e){
+            e.printStackTrace();
             throw new CustomException(120,"issue decrypt failed!");
         }
     }
@@ -96,6 +97,7 @@ public class PaperController {
             p.setSk(null);
             return MessageUtil.ok(p);
         }catch (Exception e){
+            e.printStackTrace();
             throw new CustomException(120,"transfer encrypt failed!");
         }
     }

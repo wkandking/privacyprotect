@@ -8,6 +8,7 @@ import lombok.experimental.FieldNameConstants;
 public enum SMA {
 
     SM2("com.example.qukuailian.util.SM2.SM2"),
+    SM3("com.example.qukuailian.util.SM3.SM3Service.SM3ServiceImpl"),
     SM4("com.example.qukuailian.util.SM4.SM4Util");
 
     public String getClassName() {
@@ -15,6 +16,5 @@ public enum SMA {
     }
 
     private String className;
-
 
 }

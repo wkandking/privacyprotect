@@ -3,6 +3,7 @@ package com.example.qukuailian.service;
 import com.example.qukuailian.util.SMA;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 @Service
@@ -27,5 +28,12 @@ public class CommonService {
         }
         Method method = clazz.getMethod("decrypt", new Class[]{String.class, String.class});
         return method;
+    }
+
+    public String getSM3Method(String message) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Class<?> clazz = Class.forName(SMA.SM3.getClassName());
+        Method method = clazz.getMethod("getHash", new Class[]{String.class});
+        String  hashValue = (String) method.invoke(null, new Object[]{message});
+        return hashValue;
     }
 }
