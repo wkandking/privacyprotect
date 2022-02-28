@@ -9,6 +9,7 @@ import com.example.qukuailian.service.PaperService;
 import com.example.qukuailian.service.UserService;
 import com.example.qukuailian.util.OPE.CustomException;
 import com.example.qukuailian.util.OPE.MessageUtil;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -73,10 +74,10 @@ public class PaperController {
     }
     @PostMapping("check")
     public Message<PaperInformation> check(@RequestBody String json){
-        PaperInformation p = paperService.convertPaperInforMation(json);
-        JSONObject o = (JSONObject) JSON.parse(json);
-        String algType = o.getString("algType");
         try{
+            PaperInformation p = paperService.convertPaperInforMation(StringEscapeUtils.unescapeHtml(json));
+            JSONObject o = (JSONObject) JSON.parse(json);
+            String algType = o.getString("algType");
             p = paperService.decrypt(p, algType);
             p.setPk(null);
             p.setSk(null);

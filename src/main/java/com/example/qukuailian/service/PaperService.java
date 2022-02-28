@@ -63,6 +63,8 @@ public class PaperService {
         }else{
             key = paperInformation.getSm4Key();
         }
+        System.out.println(paperInformation.getNewOwner());
+        System.out.println(paperInformation.getNewOwnerOrg());
         result.setPaperNumber(paperInformation.getPaperNumber());
         result.setIssuer((String) method.invoke(null, new Object[]{paperInformation.getIssuer(), key}));
         result.setIssuerOrg((String) method.invoke(null,  new Object[]{paperInformation.getIssuerOrg(),key}));

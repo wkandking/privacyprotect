@@ -73,6 +73,7 @@ public class AuctionService {
     public Pair<Boolean, User> insertKey(String algtype, String username) {
         try{
             User user = userMapper.selectByUserName(username);
+            System.out.println(user);
             if(user == null){
                 userService.insertUserFromAuction(username);
                 user = userMapper.selectByUserName(username);

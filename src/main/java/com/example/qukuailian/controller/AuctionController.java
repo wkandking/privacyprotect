@@ -67,10 +67,16 @@ public class AuctionController {
     public Message<AuctionInformation> queryInfo(@RequestParam("auctionid") String auctionId,
                                                  @RequestParam("highTestPrice") String highTestPrice,
                                                  @RequestParam("username") String username) throws Exception {
-        AuctionInformation auctionInformation = new AuctionInformation();
-        auctionInformation.setAuctionId(auctionId);
-        auctionInformation.setBidprice(highTestPrice);
-        auctionInformation.setUsername(username);
-        return MessageUtil.ok(auctionService.decrypt(auctionInformation));
+        try{
+            AuctionInformation auctionInformation = new AuctionInformation();
+            auctionInformation.setAuctionId(auctionId);
+            auctionInformation.setBidprice(highTestPrice);
+            auctionInformation.setUsername(username);
+            return MessageUtil.ok(auctionService.decrypt(auctionInformation));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+
     }
 }

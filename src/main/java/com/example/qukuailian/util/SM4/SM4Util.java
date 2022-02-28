@@ -94,8 +94,8 @@ public class SM4Util {
      */
     public static String encrypt(String text, String key) throws Exception {
         String cipherText = "";
-        if(text == null){
-            text = "";
+        if(text == null || text.equals("")){
+            return "";
         }
         // 16进制字符串-->byte[]
         byte[] keyData = ByteUtils.fromHexString(key);
@@ -134,6 +134,9 @@ public class SM4Util {
     public static String decrypt(String text, String key) throws Exception {
         // 用于接收解密后的字符串
         String decryptStr = "";
+        if(text == null || text.equals("")){
+            return "";
+        }
         // hexString-->byte[]
         byte[] keyData = ByteUtils.fromHexString(key);
         // hexString-->byte[]
