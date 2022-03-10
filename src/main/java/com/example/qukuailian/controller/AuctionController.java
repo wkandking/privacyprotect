@@ -1,9 +1,12 @@
 package com.example.qukuailian.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.example.qukuailian.bean.AuctionInformation;
 import com.example.qukuailian.bean.Message;
 import com.example.qukuailian.bean.User;
 import com.example.qukuailian.service.AuctionService;
+import com.example.qukuailian.util.OPE.CustomException;
 import com.example.qukuailian.util.OPE.MessageUtil;
 import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,21 +31,34 @@ public class AuctionController {
     }
 
     @PostMapping("/pkenc")
-    public Message<String> pkenc(@RequestParam("algtype") String algtype,
-                                   @RequestParam("pk") String pk,
-                                   @RequestParam("username") String username) throws Exception {
-
+    public Message<String> pkenc(@RequestBody String json) throws Exception {
+        JSONObject o = (JSONObject) JSON.parse(json);
+        String algtype = o.getString("algtype");
+        String pk = o.getString("pk");
+        String username = o.getString("username");
+        System.out.println(pk);
+        System.out.println(username);
         String enc_username = auctionService.pkenc(algtype, pk ,username);
         return MessageUtil.ok(enc_username);
     }
 
 
     @PostMapping("/decinfo")
-    public Message<String> decinfo(@RequestParam("algtype") String algtype,
-                                 @RequestParam("sk") String sk,
-                                 @RequestParam("enc_username") String enc_username) throws Exception {
-        String username = auctionService.decinfo(algtype, sk, enc_username);
-        return MessageUtil.ok(username);
+    public Message<String> decinfo(@RequestBody String json) throws Exception {
+        JSONObject o = (JSONObject) JSON.parse(json);
+        String algtype = o.getString("algtype");
+        String sk = o.getString("sk");
+        String enc_username = o.getString("enc_username");
+        System.out.println(sk);
+        System.out.println(enc_username);
+        try{
+            String username = auctionService.decinfo(algtype, sk, enc_username);
+            return MessageUtil.ok(username);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new CustomException(120, e.getMessage());
+        }
+
     }
 
 

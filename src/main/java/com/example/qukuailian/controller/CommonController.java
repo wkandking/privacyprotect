@@ -1,14 +1,13 @@
 package com.example.qukuailian.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.example.qukuailian.bean.Message;
 import com.example.qukuailian.service.CommonService;
 import com.example.qukuailian.util.OPE.CustomException;
 import com.example.qukuailian.util.OPE.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -26,6 +25,34 @@ public class CommonController {
         } catch (Exception e) {
             e.printStackTrace();
             throw new CustomException(120,"SM3加密失败");
+        }
+    }
+
+    @PostMapping("encryption")
+    public Message<String> getTimeSM4Encrypt(@RequestBody String json) {
+        JSONObject o = (JSONObject) JSON.parse(json);
+        String message = o.getString("message");
+        String time = o.getString("timestamp");
+        try{
+            String encryMessage = commonService.timeEncryptBySM4(message, time);
+            return MessageUtil.ok(encryMessage);
+        }catch (Exception e){
+            e.printStackTrace();
+            return MessageUtil.error("加密失败");
+        }
+    }
+
+    @PostMapping("decryption")
+    public Message<String> getTimeSM4Decrypt(@RequestBody String json){
+        JSONObject o = (JSONObject) JSON.parse(json);
+        String ciphertext = o.getString("ciphertext");
+        String time = o.getString("timestamp");
+        try{
+            String message = commonService.timeDecryptBySM4(ciphertext, time);
+            return MessageUtil.ok(message);
+        }catch (Exception e){
+            e.printStackTrace();
+            return MessageUtil.error("解密失败");
         }
     }
 }

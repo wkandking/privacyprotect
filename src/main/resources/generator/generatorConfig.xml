@@ -9,9 +9,9 @@
         </commentGenerator>
         <!-- 数据库的相关配置 -->
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/privacyprotect"
+                        connectionURL="jdbc:mysql://82.157.172.174:3306/privacyprotect"
                         userId="root"
-                        password="123456"/>
+                        password="wkWK132481."/>
 
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
@@ -34,7 +34,7 @@
         </javaClientGenerator>
 
         <!-- 相关表的配置 -->
-        <table tableName="alluser" domainObjectName="User" enableCountByExample="false"  enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+        <table tableName="timesm4" domainObjectName="TimeSM4" enableCountByExample="false"  enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
         <!--
         <table tableName="department" domainObjectName="Department" enableCountByExample="false"  enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
         -->

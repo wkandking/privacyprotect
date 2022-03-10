@@ -153,6 +153,7 @@ public class SM4Utils {
         //sm4.secretKey = "JeF8U9wHFOMfs2Y8";
         sm4.secretKey = "64EC7C763AB7BF64E2D75FF83A319918";
         sm4.hexString = true;
+        //65246218ddb6c80192bfef4d3362692f8fc3cef1e9552e55da71ab2158780f3
 
         System.out.println("ECB模式加密");
         String cipherText = sm4.encryptData_ECB(plainText);

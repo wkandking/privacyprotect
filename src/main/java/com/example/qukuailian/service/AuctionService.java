@@ -19,6 +19,7 @@ import java.lang.reflect.Method;
 import java.math.BigInteger;
 import java.security.KeyPair;
 import java.util.Base64;
+import java.util.LinkedList;
 
 @Service
 public class AuctionService {
@@ -95,9 +96,9 @@ public class AuctionService {
     }
 
     public String decinfo(String algtype, String sk, String enc_username) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        Method method = commonService.getEncryptMethod(algtype);
-        String key = sk.replaceAll(" +","+");
-        String data = (String) method.invoke(null, new Object[]{enc_username, key});
+        Method method = commonService.getDecryptMethod(algtype);
+        String data = (String) method.invoke(null, new Object[]{enc_username, sk});
+
         return data;
     }
 }

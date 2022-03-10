@@ -1,0 +1,25 @@
+Manifest-Version: 1.0
+Main-Class: com.example.qukuailian.QukuailianApplication
+Class-Path: jul-to-slf4j-1.7.32.jar apiguardian-api-1.1.2.jar jpbc-api-2
+ .0.0.jar spring-boot-starter-web-2.6.1.jar tomcat-embed-websocket-9.0.5
+ 5.jar spring-beans-5.3.13.jar spring-core-5.3.13.jar jpbc-plaf-2.0.0.ja
+ r spring-webmvc-5.3.13.jar log4j-api-2.14.1.jar spring-boot-starter-log
+ ging-2.6.1.jar spring-boot-starter-json-2.6.1.jar jackson-core-2.13.0.j
+ ar spring-aop-5.3.13.jar commons-lang-2.6.jar bcprov-jdk15on-1.60.jar l
+ istenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar jackson-d
+ atatype-jdk8-2.13.0.jar jackson-datatype-jsr310-2.13.0.jar spring-web-5
+ .3.13.jar jackson-module-parameter-names-2.13.0.jar spring-context-5.3.
+ 13.jar spring-boot-2.6.1.jar spring-boot-starter-tomcat-2.6.1.jar mybat
+ is-spring-boot-starter-1.3.2.jar spring-jdbc-5.3.13.jar jackson-databin
+ d-2.13.0.jar guava-29.0-jre.jar jakarta.annotation-api-1.3.5.jar mybati
+ s-spring-1.3.2.jar mybatis-3.4.6.jar logback-core-1.2.7.jar snakeyaml-1
+ .29.jar spring-expression-5.3.13.jar error_prone_annotations-2.3.4.jar 
+ tomcat-embed-core-9.0.55.jar jackson-annotations-2.13.0.jar spring-tx-5
+ .3.13.jar jsr305-3.0.2.jar spring-boot-starter-jdbc-2.6.1.jar tomcat-em
+ bed-el-9.0.55.jar slf4j-api-1.7.32.jar spring-jcl-5.3.13.jar spring-boo
+ t-starter-2.6.1.jar logback-classic-1.2.7.jar fastjson-1.2.76.jar mysql
+ -connector-java-8.0.15.jar HikariCP-4.0.3.jar checker-qual-2.11.1.jar m
+ ybatis-spring-boot-autoconfigure-1.3.2.jar spring-boot-autoconfigure-2.
+ 6.1.jar log4j-to-slf4j-2.14.1.jar j2objc-annotations-1.3.jar failureacc
+ ess-1.0.1.jar lombok-1.18.22.jar junit-platform-commons-1.8.1.jar
+
