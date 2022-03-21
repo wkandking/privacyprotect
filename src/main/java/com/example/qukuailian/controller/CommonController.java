@@ -55,4 +55,27 @@ public class CommonController {
             return MessageUtil.error("解密失败");
         }
     }
+
+    @PostMapping(value = "/difPrivacy")
+    public Message<String> difPrivacy(@RequestParam("value") Double value,@RequestParam("epsilon") Double epsilon){
+        try {
+            Double difValue = commonService.difPrivacy(value,epsilon);
+            String retValue = String.valueOf(difValue);
+            return MessageUtil.ok(retValue);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new CustomException(120,"差分隐私加密失败");
+        }
+    }
+
+    @PostMapping(value = "/kanonymity")
+    public Message<String> kanonymity(@RequestParam("value") int value,@RequestParam("message") String message){
+        try {
+            String retValue = commonService.kanonymity(value,message);
+            return MessageUtil.ok(retValue);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new CustomException(120,"K匿名加密失败");
+        }
+    }
 }

@@ -76,4 +76,13 @@ public class CommonService {
         String message = (String) method.invoke(null, new Object[]{encMessage, sm4key});
         return message;
     }
+    public Double difPrivacy(Double value,Double epsilon){
+        Double retvalue = com.example.qukuailian.dif_pravice.difService.DifferentialPrivacyImpl.get_noisy_digit(value,epsilon);
+        return retvalue;
+    }
+
+    public String kanonymity(int k,String context){
+        String retvalue = com.example.qukuailian.Kanonymity.KanonymityService.KanonymityImpl.kannoy(k,context);
+        return retvalue;
+    }
 }
